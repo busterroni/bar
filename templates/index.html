@@ -13,6 +13,16 @@ $def with ()
 		display: none;
 	}
 
+	.arrow {
+		font-size: 50px;
+		position: fixed;
+		right: 10px;
+		bottom: 10px;
+		background-color: green;
+		color: white;
+		border-radius: 10px;
+	}
+
 	.drinks {
 		display: none;
 	}
@@ -65,41 +75,22 @@ $def with ()
 	</div>
 
 	<div class="drinks">
+		<span id="down-arrow" class="arrow">↓</span>
+		<span id="up-arrow" class="arrow" style="visibility: hidden;">↑</span>
+
 		<span style="font-size: 50px;">Available drinks</span>
 
 		<br />
 
-		<!-- $$for i in range(4):
-			<span class="drink">
-				<span>Lemonade</span>
-
-				<img src="https://www.pngarts.com/files/4/Lemonade-PNG-Image-Transparent.png" width="150px" />
-
-				<button id="drink-0" class="pour-drink">Pour</button>
-			</span>
-
-		<hr /> -->
-
-		<span class="drink">
-			<span>Water</span>
-
-			<img src="http://pluspng.com/img-png/glass-of-water-png-hd-blue-transparent-water-glass-without-matting-blue-transparent-water-glass-png-image-and-650.jpg" width="50px" />
-
-			<button id="drink-0" class="pour-drink">Pour</button>
-		</span>
-
-<!-- 
-		<span style="font-size: 100px;">Mixed drinks</span>
+		<span id="all-drinks"></span>
 
 		<br />
 
-		<span class="drink">
-			<span>Arnold Palmer</span>
+		<span style="font-size: 50px;">Mixed drinks</span>
 
-			<img src="https://www.pngkey.com/png/detail/380-3805208_arizona-arnold-palmer-arizona-half-tea-half-lemonade.png" width="150px" />
+		<br />
 
-			<button id="mixed-drink-0" class="pour-drink">Pour</button>
-		</span> -->
+		<span id="all-mixed-drinks"></span>
 	</div>
 
 	<div class="pouring">
@@ -108,6 +99,47 @@ $def with ()
 </div>
 
 <script type="text/javascript">
+	var drinksNames = [];
+
+	$$.getJSON('../static/drinks.json', function(json) {
+		for (var i = 0; i < json['drinks'].length; i++) {
+			var currentDrink = json['drinks'][i];
+
+			if (currentDrink['available']) {
+				drinksNames.push(currentDrink['name']);
+
+				var drink_text = '<span class="drink"><span>';
+				drink_text += currentDrink['name'];
+				drink_text += '</span>';
+
+				drink_text += '<img src="../static/drinks/' + currentDrink['image_path'] + '" height="100px" />';
+
+				drink_text += '<button id="pump-' + currentDrink['pump'] + '" class="pour-drink">Pour</button></span>';
+
+				document.getElementById('all-drinks').innerHTML += drink_text;
+			}
+		}
+
+		for (var i = 0; i < json['mixed-drinks'].length; i++) {
+			var currentDrink = json['mixed-drinks'][i];
+
+			if (
+				(currentDrink['name'] == "Jack & Coke" && drinksNames.includes("Jack Daniel's") && drinksNames.includes("Coca-Cola")) ||
+				(currentDrink['name'] == "Vodka Sprite" && drinksNames.includes("Zelko") && drinksNames.includes("Sprite"))
+			) {
+				var drink_text = '<span class="drink"><span>';
+				drink_text += currentDrink['name'];
+				drink_text += '</span>';
+
+				drink_text += '<img src="../static/drinks/' + currentDrink['image_path'] + '" height="100px" />'
+
+				drink_text += '<button id="mixed-drink-' + currentDrink['name'] + '" class="pour-drink">Pour</button></span>'
+
+				document.getElementById('all-mixed-drinks').innerHTML += drink_text
+			}
+		}
+	});
+
 	$$('#select-drink').fadeIn(2000);
 
 	$$('#select-drink').on('click', function() {
@@ -125,7 +157,7 @@ $def with ()
 			url: 'pour',
 			dataType: 'json',
 			data: {
-				'drink-id': e.currentTarget.id
+				'pump-id': e.currentTarget.id
 			},
 			success: function(data) {
 				$$('.pouring').fadeOut(2000);
@@ -134,14 +166,42 @@ $def with ()
 					$$('.intro').fadeIn(2000);
 				}, 2000);
 			}
-		})
+		});
 
 		$$('.drinks').hide('slide', {
 			direction: 'left'
 		}, 2000);
 
 		setTimeout(function() {
-			$$('.pouring').fadeIn(6000);
-		}, 6000);
+			$$('.pouring').fadeIn(2000);
+		}, 2000);
+	});
+
+	$$('#down-arrow').on('click', function(e) {
+		$$('body').animate(
+			{
+				scrollTop: $$(document).height()
+			},
+			3000
+		);
+
+		setTimeout(function() {
+			document.getElementById('down-arrow').style.visibility = "hidden";
+			document.getElementById('up-arrow').style.visibility = "visible";
+		}, 2000);
+	});
+
+	$$('#up-arrow').on('click', function(e) {
+		$$('body').animate(
+			{
+				scrollTop: 0
+			},
+			3000
+		);
+
+		setTimeout(function() {
+			document.getElementById('up-arrow').style.visibility = "hidden";
+			document.getElementById('down-arrow').style.visibility = "visible";
+		}, 2000);
 	});
 </script>

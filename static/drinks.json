@@ -1,0 +1,58 @@
+{  
+   "drinks":[  
+      {  
+         "name":"Water",
+         "image_path":"water.png",
+         "pump":1,
+         "available":true
+      },
+      {  
+         "name":"Coca-Cola",
+         "image_path":"coca_cola.png",
+         "pump":2,
+         "available":true
+      },
+      {  
+         "name":"Jack Daniel's",
+         "image_path":"jack_daniels.png",
+         "pump":3,
+         "available":true
+      },
+      {  
+         "name":"Fireball",
+         "image_path":"fireball.png",
+         "pump":4,
+         "available":true
+      },
+      {  
+         "name":"Zelko",
+         "image_path":"zelko.png",
+         "pump":5,
+         "available":true
+      },
+      {  
+         "name":"Sprite",
+         "image_path":"sprite.png",
+         "pump":6,
+         "available":true
+      }
+   ],
+   "mixed-drinks":[  
+      {  
+         "name":"Jack & Coke",
+         "image_path":"jack_and_coke.png"
+      },
+      {  
+         "name":"Vodka Sprite",
+         "image_path":"vodka_sprite.png"
+      }
+   ],
+   "pump-pin":{  
+      "1":23,
+      "2":30,
+      "3":15,
+      "4":12,
+      "5":16,
+      "6":20
+   }
+}
