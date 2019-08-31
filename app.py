@@ -46,7 +46,7 @@ class Pour:
 
 				# pins.append(drink_data['pump-pin'][jack_drink['pump']])
 				# pins.append(drink_data['pump-pin'][jack_drink['pump']])
-		print pins
+
 		seconds=10
 		pixels.fill((0, 0, 0))
 		time_per_pixel = float(seconds) / num_pixels
@@ -58,7 +58,7 @@ class Pour:
 				pixels[i] = (0, 0, 255)
 		
 				time.sleep(time_per_pixel)
-				
+
 			RPi.GPIO.output(21, RPi.GPIO.LOW)
 
 		pixels.fill((random.randint(0, 255)))
