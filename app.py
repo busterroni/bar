@@ -1,9 +1,9 @@
 import web
 import time
 import json
-# import RPi.GPIO
-# import board
-# import neopixel
+import RPi.GPIO
+import board
+import neopixel
 import random
 
 urls = (
