@@ -1,0 +1,147 @@
+$def with ()
+
+<script src="../static/jquery-3.4.1.min.js"></script>
+<script src="../static/jquery-ui.min.js"></script>
+
+<style>
+	#select-drink {
+		border-radius: 10px;
+		background-color: #4993D2;
+		font-size: 35px;
+		color: white;
+		margin: 0 auto;
+		display: none;
+	}
+
+	.drinks {
+		display: none;
+	}
+
+	.drink {
+		font-size: 30px;
+		border: 1px solid black;
+		display: inline-grid;
+		margin-left: 10px;
+		margin-right: 10px;
+		margin-top: 10px;
+	}
+
+	.drink img {
+		margin: 0 auto;
+	}
+
+	.drink span {
+		margin-left: 20px;
+		margin-right: 20px;
+	}
+
+	.pour-drink {
+		border-radius: 10px;
+		background-color: #4993D2;
+		font-size: 25px;
+		color: white;
+		margin-left: 30px;
+		margin-right: 30px;
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+
+	.pouring {
+		display: none;
+	}
+</style>
+
+<div style="text-align: center;">
+	<div class="intro">
+		<span style="font-size: 50px;">Welcome to bar!</span>
+
+		<br />
+
+		<img src="https://1000logos.net/wp-content/uploads/2017/05/Pepsi-Logo.png" style="width: 165px;" id="logo" />
+
+		<br />
+
+		<button id="select-drink">Select a drink</button>
+	</div>
+
+	<div class="drinks">
+		<span style="font-size: 50px;">Available drinks</span>
+
+		<br />
+
+		<!-- $$for i in range(4):
+			<span class="drink">
+				<span>Lemonade</span>
+
+				<img src="https://www.pngarts.com/files/4/Lemonade-PNG-Image-Transparent.png" width="150px" />
+
+				<button id="drink-0" class="pour-drink">Pour</button>
+			</span>
+
+		<hr /> -->
+
+		<span class="drink">
+			<span>Water</span>
+
+			<img src="http://pluspng.com/img-png/glass-of-water-png-hd-blue-transparent-water-glass-without-matting-blue-transparent-water-glass-png-image-and-650.jpg" width="50px" />
+
+			<button id="drink-0" class="pour-drink">Pour</button>
+		</span>
+
+<!-- 
+		<span style="font-size: 100px;">Mixed drinks</span>
+
+		<br />
+
+		<span class="drink">
+			<span>Arnold Palmer</span>
+
+			<img src="https://www.pngkey.com/png/detail/380-3805208_arizona-arnold-palmer-arizona-half-tea-half-lemonade.png" width="150px" />
+
+			<button id="mixed-drink-0" class="pour-drink">Pour</button>
+		</span> -->
+	</div>
+
+	<div class="pouring">
+		<span style="font-size: 50px;">Pouring...</span>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$$('#select-drink').fadeIn(2000);
+
+	$$('#select-drink').on('click', function() {
+		$$('.intro').hide('slide', {
+			direction: 'left'
+		}, 2000);
+
+		setTimeout(function() {
+			$$('.drinks').fadeIn(2000);
+		}, 2000);
+	});
+
+	$$('.pour-drink').on('click', function(e) {
+		$$.ajax({
+			url: 'pour',
+			dataType: 'json',
+			data: {
+				'drink-id': e.currentTarget.id
+			},
+			success: function(data) {
+				$$('.pouring').fadeOut(2000);
+
+				setTimeout(function() {
+					$$('.intro').fadeIn(2000);
+				}, 2000);
+			}
+		})
+
+		$$('.drinks').hide('slide', {
+			direction: 'left'
+		}, 2000);
+
+		setTimeout(function() {
+			$$('.pouring').fadeIn(6000);
+		}, 6000);
+	});
+</script>
