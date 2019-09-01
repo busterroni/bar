@@ -2,8 +2,7 @@ import web
 import time
 import json
 import RPi.GPIO
-import board
-import neopixel
+import subprocess
 import random
 
 urls = (
@@ -14,16 +13,12 @@ urls = (
 app = web.application(urls, globals())
 render = web.template.render('templates')
 web.config.debug = True
-pixel_pin = board.D12
-num_pixels = 18
-
-pixels = neopixel.NeoPixel(pixel_pin, num_pixels)
 
 drink_data = json.load(open('static/drinks.json', 'r'))
 
 class Index:
 	def GET(self):
-		pixels.fill((random.randint(0, 255)))
+		subprocess.Popen(['python3', 'light_led.py'])
 		return render.index()
 
 class Pour:
@@ -33,35 +28,34 @@ class Pour:
 		if data['pump-id'].startswith('pump-'):
 			pump = data['pump-id'].replace('pump-', '')
 		elif data['pump-id'].startswith('mixed-drink-'):
-			pump = data['pump-id']
+			pump = data['pump-id'].replace('mixed-drink-', '')
 
 		pins = []
 
 		if pump.isdigit():
 			pins.append(drink_data['pump-pin'][pump])
 		else:
+			print pump
 			if pump == "Jack & Coke":
 				jack_drink = get_drink("Jack Daniel's")
 				coke_drink = get_drink("Coca Cola")
 
+				# pins.append(50)
+				pins.append(50)
+
 				# pins.append(drink_data['pump-pin'][jack_drink['pump']])
 				# pins.append(drink_data['pump-pin'][jack_drink['pump']])
 
-		seconds=10
-		pixels.fill((0, 0, 0))
-		time_per_pixel = float(seconds) / num_pixels
+		seconds=3
+
+		subprocess.Popen(['python3', 'light_led_time.py', str(seconds)])
 
 		for pin in pins:
 			RPi.GPIO.output(21, RPi.GPIO.HIGH)
 
-			for i in range(num_pixels):
-				pixels[i] = (0, 0, 255)
-		
-				time.sleep(time_per_pixel)
+			time.sleep(seconds)
 
 			RPi.GPIO.output(21, RPi.GPIO.LOW)
-
-		pixels.fill((random.randint(0, 255)))
 
 		return json.dumps({'success': False})
 

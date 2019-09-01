@@ -137,6 +137,31 @@ $def with ()
 
 				document.getElementById('all-mixed-drinks').innerHTML += drink_text
 			}
+
+			$$('.pour-drink').on('click', function(e) {
+				$$.ajax({
+					url: 'pour',
+					dataType: 'json',
+					data: {
+						'pump-id': e.currentTarget.id
+					},
+					success: function(data) {
+						$$('.pouring').fadeOut(2000);
+
+						setTimeout(function() {
+							$$('.intro').fadeIn(2000);
+						}, 2000);
+					}
+				});
+
+				$$('.drinks').hide('slide', {
+					direction: 'left'
+				}, 2000);
+
+				setTimeout(function() {
+					$$('.pouring').fadeIn(2000);
+				}, 2000);
+			});
 		}
 	});
 
@@ -149,31 +174,6 @@ $def with ()
 
 		setTimeout(function() {
 			$$('.drinks').fadeIn(2000);
-		}, 2000);
-	});
-
-	$$('.pour-drink').on('click', function(e) {
-		$$.ajax({
-			url: 'pour',
-			dataType: 'json',
-			data: {
-				'pump-id': e.currentTarget.id
-			},
-			success: function(data) {
-				$$('.pouring').fadeOut(2000);
-
-				setTimeout(function() {
-					$$('.intro').fadeIn(2000);
-				}, 2000);
-			}
-		});
-
-		$$('.drinks').hide('slide', {
-			direction: 'left'
-		}, 2000);
-
-		setTimeout(function() {
-			$$('.pouring').fadeIn(2000);
 		}, 2000);
 	});
 
