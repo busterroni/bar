@@ -15,5 +15,4 @@ time_per_pixel = float(seconds) / num_pixels
 
 for i in range(num_pixels):
 	pixels[i] = (0, 0, 255)
-	pixels.fill((random.randint(0, 255)))
 	time.sleep(time_per_pixel)

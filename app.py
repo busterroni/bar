@@ -1,7 +1,7 @@
 import web
 import time
 import json
-import RPi.GPIO
+# import RPi.GPIO
 import subprocess
 import random
 
@@ -15,6 +15,8 @@ render = web.template.render('templates')
 web.config.debug = True
 
 drink_data = json.load(open('static/drinks.json', 'r'))
+RPi.GPIO.setmode(RPi.GPIO.BCM)
+RPi.GPIO.setup(21, RPi.GPIO.OUT)
 
 class Index:
 	def GET(self):
@@ -35,7 +37,6 @@ class Pour:
 		if pump.isdigit():
 			pins.append(drink_data['pump-pin'][pump])
 		else:
-			print pump
 			if pump == "Jack & Coke":
 				jack_drink = get_drink("Jack Daniel's")
 				coke_drink = get_drink("Coca Cola")
@@ -65,8 +66,6 @@ def get_drink(name):
 			return drink
 
 if __name__ == '__main__':
-	RPi.GPIO.setmode(RPi.GPIO.BCM)
-	RPi.GPIO.setup(21, RPi.GPIO.OUT)
 	app.run()
 
 

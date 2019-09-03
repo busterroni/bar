@@ -1,4 +1,5 @@
 import time
+import random
 import board
 import neopixel
 
