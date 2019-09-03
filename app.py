@@ -1,7 +1,7 @@
 import web
 import time
 import json
-# import RPi.GPIO
+import RPi.GPIO
 import subprocess
 import random
 
