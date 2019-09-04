@@ -28,7 +28,7 @@ RPi.GPIO.output(26, RPi.GPIO.HIGH)
 
 class Index:
 	def GET(self):
-		subprocess.Popen(['python3', 'light_led.py'])
+		subprocess.Popen(['sudo', 'python3', 'light_led.py'])
 		return render.index()
 
 class Pour:
@@ -57,7 +57,7 @@ class Pour:
 
 		seconds=3
 
-		subprocess.Popen(['python3', 'light_led_time.py', str(seconds)])
+		subprocess.Popen(['sudo', 'python3', 'light_led_time.py', str(seconds)])
 
 		for pin in pins:
 			RPi.GPIO.output(pin, RPi.GPIO.LOW)
