@@ -2,6 +2,8 @@ import web
 import time
 import json
 import RPi.GPIO
+import os
+import signal
 import subprocess
 import random
 
@@ -25,10 +27,10 @@ RPi.GPIO.output(20, RPi.GPIO.HIGH)
 RPi.GPIO.output(16, RPi.GPIO.HIGH)
 RPi.GPIO.output(26, RPi.GPIO.HIGH)
 
+flashing_lights = subprocess.Popen(['sudo', 'python3', 'light_led.py'])
 
 class Index:
 	def GET(self):
-		subprocess.Popen(['sudo', 'python3', 'light_led.py'])
 		return render.index()
 
 class Pour:
@@ -56,7 +58,7 @@ class Pour:
 				# pins.append(drink_data['pump-pin'][jack_drink['pump']])
 
 		seconds=3
-
+		os.kill(flashing_lights.pid, signal.SIGSTOP)
 		subprocess.Popen(['sudo', 'python3', 'light_led_time.py', str(seconds)])
 
 		for pin in pins:
@@ -66,6 +68,7 @@ class Pour:
 
 			RPi.GPIO.output(pin, RPi.GPIO.HIGH)
 
+		os.kill(flashing_lights.pid, signal.SIGCONT)
 		return json.dumps({'success': False})
 
 def get_drink(name):
