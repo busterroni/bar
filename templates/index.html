@@ -120,50 +120,49 @@ $def with ()
 			}
 		}
 
-		for (var i = 0; i < json['mixed-drinks'].length; i++) {
-			var currentDrink = json['mixed-drinks'][i];
+		$$('.pour-drink').on('click', function(e) {
+			$$.ajax({
+				url: 'pour',
+				dataType: 'json',
+				data: {
+					'pump-id': e.currentTarget.id
+				},
+				success: function(data) {
+					$$('.pouring').fadeOut(2000);
 
-			if (
-				(currentDrink['name'] == "Jack & Coke" && drinksNames.includes("Jack Daniel's") && drinksNames.includes("Coca-Cola")) ||
-				(currentDrink['name'] == "Vodka Sprite" && drinksNames.includes("Zelko") && drinksNames.includes("Sprite"))
-			) {
-				var drink_text = '<span class="drink"><span>';
-				drink_text += currentDrink['name'];
-				drink_text += '</span>';
-
-				drink_text += '<img src="../static/drinks/' + currentDrink['image_path'] + '" height="100px" />'
-
-				drink_text += '<button id="mixed-drink-' + currentDrink['name'] + '" class="pour-drink">Pour</button></span>'
-
-				document.getElementById('all-mixed-drinks').innerHTML += drink_text
-			}
-
-			$$('.pour-drink').on('click', function(e) {
-				$$.ajax({
-					url: 'pour',
-					dataType: 'json',
-					data: {
-						'pump-id': e.currentTarget.id
-					},
-					success: function(data) {
-						$$('.pouring').fadeOut(2000);
-
-						setTimeout(function() {
-							$$('.intro').fadeIn(2000);
-						}, 2000);
-					}
-				});
-
-				$$('.drinks').hide('slide', {
-					direction: 'left'
-				}, 2000);
-
-				setTimeout(function() {
-					$$('.pouring').fadeIn(2000);
-				}, 2000);
+					setTimeout(function() {
+						$$('.intro').fadeIn(2000);
+					}, 2000);
+				}
 			});
-		}
+
+			$$('.drinks').hide('slide', {
+				direction: 'left'
+			}, 2000);
+
+			setTimeout(function() {
+				$$('.pouring').fadeIn(2000);
+			}, 2000);
+		});
 	});
+
+		// for (var i = 0; i < json['mixed-drinks'].length; i++) {
+		// 	var currentDrink = json['mixed-drinks'][i];
+
+		// 	if (
+		// 		(currentDrink['name'] == "Jack & Coke" && drinksNames.includes("Jack Daniel's") && drinksNames.includes("Coca-Cola")) ||
+		// 		(currentDrink['name'] == "Vodka Sprite" && drinksNames.includes("Zelko") && drinksNames.includes("Sprite"))
+		// 	) {
+		// 		var drink_text = '<span class="drink"><span>';
+		// 		drink_text += currentDrink['name'];
+		// 		drink_text += '</span>';
+
+		// 		drink_text += '<img src="../static/drinks/' + currentDrink['image_path'] + '" height="100px" />'
+
+		// 		drink_text += '<button id="mixed-drink-' + currentDrink['name'] + '" class="pour-drink">Pour</button></span>'
+
+		// 		document.getElementById('all-mixed-drinks').innerHTML += drink_text
+		// 	}
 
 	$$('#select-drink').fadeIn(2000);
 
