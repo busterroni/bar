@@ -24,28 +24,6 @@
          "pump":4,
          "available":true
       },
-      // {  
-      //    "name":"Zelko",
-      //    "image_path":"zelko.png",
-      //    "pump":5,
-      //    "available":true
-      // },
-      // {  
-      //    "name":"Sprite",
-      //    "image_path":"sprite.png",
-      //    "pump":6,
-      //    "available":true
-      // }
-   ],
-   "mixed-drinks":[  
-      // {  
-      //    "name":"Jack & Coke",
-      //    "image_path":"jack_and_coke.png"
-      // },
-      // {  
-      //    "name":"Vodka Sprite",
-      //    "image_path":"vodka_sprite.png"
-      // }
    ],
    "pump-pin":{  
       "1":21,
