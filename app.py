@@ -27,7 +27,7 @@ RPi.GPIO.output(20, RPi.GPIO.HIGH)
 RPi.GPIO.output(16, RPi.GPIO.HIGH)
 RPi.GPIO.output(26, RPi.GPIO.HIGH)
 
-flashing_lights = subprocess.Popen(['sudo', 'python3', 'light_led.py'])
+flashing_lights = subprocess.Popen(['sudo', 'python3', 'light_led.py'], shell=True)
 
 class Index:
 	def GET(self):
@@ -59,7 +59,7 @@ class Pour:
 
 		seconds=10
 		os.kill(flashing_lights.pid, signal.SIGSTOP)
-		subprocess.Popen(['sudo', 'python3', 'light_led_time.py', str(seconds)])
+		subprocess.Popen(['sudo', 'python3', 'light_led_time.py', str(seconds)], shell=True)
 
 		for pin in pins:
 			RPi.GPIO.output(pin, RPi.GPIO.LOW)
