@@ -57,7 +57,7 @@ class Pour:
 				# pins.append(drink_data['pump-pin'][jack_drink['pump']])
 				# pins.append(drink_data['pump-pin'][jack_drink['pump']])
 
-		seconds=3
+		seconds=10
 		os.kill(flashing_lights.pid, signal.SIGSTOP)
 		subprocess.Popen(['sudo', 'python3', 'light_led_time.py', str(seconds)])
 
