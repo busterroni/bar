@@ -60,11 +60,11 @@ class Pour:
 		subprocess.Popen(['python3', 'light_led_time.py', str(seconds)])
 
 		for pin in pins:
-			RPi.GPIO.output(21, RPi.GPIO.HIGH)
+			RPi.GPIO.output(21, RPi.GPIO.LOW)
 
 			time.sleep(seconds)
 
-			RPi.GPIO.output(21, RPi.GPIO.LOW)
+			RPi.GPIO.output(21, RPi.GPIO.HIGH)
 
 		return json.dumps({'success': False})
 
