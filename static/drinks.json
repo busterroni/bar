@@ -23,14 +23,12 @@
          "image_path":"fireball.png",
          "pump":4,
          "available":true
-      },
+      }
    ],
    "pump-pin":{  
       "1":21,
       "2":20,
       "3":16,
-      "4":26,
-      // "5":16,
-      // "6":20
+      "4":26
    }
 }
