@@ -20,10 +20,10 @@ RPi.GPIO.setup(21, RPi.GPIO.OUT)
 RPi.GPIO.setup(20, RPi.GPIO.OUT)
 RPi.GPIO.setup(16, RPi.GPIO.OUT)
 RPi.GPIO.setup(26, RPi.GPIO.OUT)
-RPi.GPIO.output(21, RPi.GPIO.LOW)
-RPi.GPIO.output(20, RPi.GPIO.LOW)
-RPi.GPIO.output(16, RPi.GPIO.LOW)
-RPi.GPIO.output(26, RPi.GPIO.LOW)
+RPi.GPIO.output(21, RPi.GPIO.HIGH)
+RPi.GPIO.output(20, RPi.GPIO.HIGH)
+RPi.GPIO.output(16, RPi.GPIO.HIGH)
+RPi.GPIO.output(26, RPi.GPIO.HIGH)
 
 
 class Index:
